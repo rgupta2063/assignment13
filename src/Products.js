@@ -59,14 +59,14 @@ class Products extends Component {
         })
     }
     
-    handleUpdateStatus = productId => {
-        $.ajax({
-          type: 'PUT',
-          url: `http://localhost:3001/product/update/${productId}`
-        }).then(() => {
-          this.getProducts()
-        })
-    }
+    // handleUpdateStatus = productId => {
+    //     $.ajax({
+    //       type: 'PUT',
+    //       url: `http://localhost:3001/product/update/${productId}`
+    //     }).then(() => {
+    //       this.getProducts()
+    //     })
+    // }
 
     render () {
         return (

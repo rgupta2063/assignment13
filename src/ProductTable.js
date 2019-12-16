@@ -30,8 +30,8 @@ class ProductTable extends Component {
 
         return (
             <div>
-                <table className="table table-striped table-sm">
-                    <thead className="thead-dark">
+                <table class="table table-striped table-sm">
+                    <thead class="thead-dark">
                         <tr>
                             <th>Name</th>
                             <th>Category</th>

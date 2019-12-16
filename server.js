@@ -1,24 +1,21 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-// const cors = require('cors')
-const app = express()
+const cors = require('cors')
+
 const dbUrl = 'mongodb+srv://Ritu:Ghanshi%401986@cluster0-5m0il.mongodb.net/test?retryWrites=true&w=majority'
+const app = express()
+mongoose.connect(dbUrl,{useNewUrlParser: true, useUnifiedTopology: true } , (err) => {
+  console.log('MongoDb database connection', err)        
+})
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}));
-// app.use(cors())
-app.use(express.static(__dirname))
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE')
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
-    next()
-})
+app.use(cors())
 
 
 const Product = mongoose.model('product',
      {
-           "productid": Number ,
+           "productId": Number ,
            "category": String,
            "price": Number,
            "name": String,
@@ -49,6 +46,8 @@ app.post('/product/create/', (req, res) => {
     })
   })
 
+
+
 app.put('/product/update/:productId', (req, res) => {
     Product.updateOne(
       { productId: req.params.productId },
@@ -64,7 +63,7 @@ app.put('/product/update/:productId', (req, res) => {
 
 
 app.delete('/product/delete/:productId', (req, res) => {
-    Product.deleteOne({ productId: req.params.productId }, err => {
+    Product.deleteOne({productId: req.params.productId }, err => {
         if (err) {
             console.log('Delete Error: ', err)
         }else {
@@ -74,8 +73,5 @@ app.delete('/product/delete/:productId', (req, res) => {
 })
 
 
-mongoose.connect(dbUrl,{useNewUrlParser: true, useUnifiedTopology: true } , (err) => {
-    console.log('MongoDb database connection', err)        
-})
 
 app.listen(3001)
